@@ -105,7 +105,7 @@ def objective(trial: optuna.Trial) -> float:
 
     print(f"  [Trial {trial.number:3d}] "
           f"wd={weight_decay:.1e} | drop={dropout_prob:.2f} | "
-          f"lr={lr:.1e} | val_f1={val_f1:.4f} | gap={gap:.4f}")
+          f"lr={lr:.1e} | val_f1={val_f1:.4f} | val_acc={val_acc:.4f} | gap={gap:.4f}")
 
     # Pruning des trials peu performants
     trial.report(val_f1, step=len(history["val_f1"]))
