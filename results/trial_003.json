@@ -1,0 +1,10 @@
+{
+  "trial": 3,
+  "weight_decay": 0.01,
+  "dropout": 0.287,
+  "lr": 1e-05,
+  "val_f1": 0.7962,
+  "val_accuracy": 0.7932,
+  "train_accuracy": 0.8391,
+  "gap": 0.0338
+}

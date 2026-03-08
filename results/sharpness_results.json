@@ -1,0 +1,37 @@
+{
+  "D\u00e9faut (WD=0, Drop=0.1)": {
+    "sharpness": 0.03821,
+    "val_f1": 0.808,
+    "val_acc": 0.812,
+    "train_acc": 0.882,
+    "generalization_gap": 0.06999999999999995
+  },
+  "Fort WD (WD=1e-2, Drop=0.0)": {
+    "sharpness": 0.03214,
+    "val_f1": 0.793,
+    "val_acc": 0.798,
+    "train_acc": 0.856,
+    "generalization_gap": 0.05799999999999994
+  },
+  "Fort Drop (WD=0, Drop=0.3)": {
+    "sharpness": 0.03512,
+    "val_f1": 0.786,
+    "val_acc": 0.791,
+    "train_acc": 0.838,
+    "generalization_gap": 0.04699999999999993
+  },
+  "Combin\u00e9 (WD=1e-3, Drop=0.1)": {
+    "sharpness": 0.02187,
+    "val_f1": 0.824,
+    "val_acc": 0.828,
+    "train_acc": 0.893,
+    "generalization_gap": 0.06500000000000006
+  },
+  "Optuna Best": {
+    "sharpness": 0.01923,
+    "val_f1": 0.835,
+    "val_acc": 0.838,
+    "train_acc": 0.902,
+    "generalization_gap": 0.06400000000000006
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "best_config": "Optuna Best",
+  "best_hp": {
+    "weight_decay": 0.00083,
+    "dropout_prob": 0.1,
+    "lr": 2.7e-05
+  },
+  "test_metrics": {
+    "accuracy": 0.861,
+    "f1": 0.858,
+    "loss": 0.421
+  },
+  "sharpness": {
+    "D\u00e9faut (WD=0, Drop=0.1)": 0.03821,
+    "Fort WD (WD=1e-2, Drop=0.0)": 0.03214,
+    "Fort Drop (WD=0, Drop=0.3)": 0.03512,
+    "Combin\u00e9 (WD=1e-3, Drop=0.1)": 0.02187,
+    "Optuna Best": 0.01923
+  },
+  "generalization_gaps": {
+    "D\u00e9faut (WD=0, Drop=0.1)": 0.06999999999999995,
+    "Fort WD (WD=1e-2, Drop=0.0)": 0.05799999999999994,
+    "Fort Drop (WD=0, Drop=0.3)": 0.04699999999999993,
+    "Combin\u00e9 (WD=1e-3, Drop=0.1)": 0.06500000000000006,
+    "Optuna Best": 0.06400000000000006
+  },
+  "optuna_best_params": {
+    "weight_decay": 0.00083,
+    "dropout_prob": 0.1,
+    "lr": 2.7e-05,
+    "batch_size": 8
+  },
+  "optuna_best_val_f1": 0.861,
+  "n_trials": 20,
+  "best_val_f1": 0.861,
+  "best_params": {
+    "weight_decay": 0.00083,
+    "dropout_prob": 0.1,
+    "lr": 2.7e-05,
+    "batch_size": 8
+  }
+}
