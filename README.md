@@ -80,4 +80,4 @@ Durée estimée :
 ---
 
 ## lien vers le dépôt 
-- Dépôt : https://github.com/VOLTAIRE12345/G02-PROJET-COMPLET
+- Dépôt : https://github.com/VOLTAIRE12345/G02-PROJET-COMPLET.git
