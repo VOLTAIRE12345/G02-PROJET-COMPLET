@@ -14,7 +14,7 @@
 ## Structure du projet
 
 ```
-G02_COLAB/
+PROJET G02 COMPLET/
 ├── README.md
 ├── requirements.txt
 ├── src/
