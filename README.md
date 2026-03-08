@@ -40,8 +40,8 @@ G02_COLAB/
 
 ### Étape 1 — Cloner le dépôt GitHub
 ```python
-!git clone https://github.com/VOLTAIRE12345/ML-PROJET-G02.git /content/G02_COLAB
-%cd /content/G02_COLAB
+!git clone https://github.com/VOLTAIRE12345/G02-PROJET-COMPLET.git /content/PROJET G02 COMPLET
+%cd /content/PROJET G02 COMPLET
 ```
 
 ### Étape 2 — Installer les dépendances
@@ -78,6 +78,5 @@ Durée estimée :
 
 ---
 
-## Contacts
-- Enseignant : mbialaura12@gmail.com
-- Dépôt : https://github.com/VOLTAIRE12345/ML-PROJET-G02
+## lien vers le dépôt 
+- Dépôt : https://github.com/VOLTAIRE12345/G02-PROJET-COMPLET
