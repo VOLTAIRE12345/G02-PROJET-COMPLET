@@ -207,13 +207,13 @@ plot_confusion_matrix(all_labels, all_preds)
 # ÉTAPE 7 — Sauvegarde du résumé final
 # ═══════════════════════════════════════════════════════════════════════════════
 final_summary = {
-    "best_config":          best_cfg["label"],
-    "best_hp":              best_cfg["hp"],
-    "test_metrics":         test_metrics,
-    "sharpness":            sharpness_dict,
-    "generalization_gaps":  {k: v["train_acc"] - v["val_acc"] for k, v in gap_dict.items()},
-    "optuna_best_params":   best_params,
-    "optuna_best_val_f1":   study.best_value,
+    "best_config":         best_cfg["label"],
+    "best_hp":             best_cfg["hp"],         # HP de la config gagnante (Etape 3)
+    "optuna_best_params":  best_params,             # HP trouvés par Optuna (Etape 2) — même valeurs si Optuna Best gagne
+    "optuna_best_val_f1":  study.best_value,
+    "test_metrics":        test_metrics,
+    "sharpness":           sharpness_dict,
+    "generalization_gaps": {k: v["train_acc"] - v["val_acc"] for k, v in gap_dict.items()},
 }
 summary_path = os.path.join(RESULTS_DIR, "final_summary.json")
 with open(summary_path, "w") as f:
