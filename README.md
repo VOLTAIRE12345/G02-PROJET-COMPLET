@@ -14,7 +14,7 @@
 ## Structure du projet
 
 ```
-G02_PROJET/
+G02_PROJET_COMPLET/
 ├── README.md
 ├── requirements.txt
 ├── src/
@@ -53,8 +53,8 @@ G02_PROJET/
 
 ### Étape 1 — Cloner le dépôt
 ```python
-!git clone https://github.com/VOLTAIRE12345/G02-PROJET-COMPLET.git /content/G02_PROJET
-%cd /content/G02_PROJET
+!git clone https://github.com/VOLTAIRE12345/G02-PROJET-COMPLET.git /content/PROJET G02 COMPLET
+%cd /content/PROJET G02 COMPLET
 ```
 
 ### Étape 2 — Installer les dépendances
@@ -77,7 +77,7 @@ print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else "CPU")
 ```python
 import os
 print("Figures générées :")
-for f in sorted(os.listdir('/content/G02_PROJET/figures/')):
+for f in sorted(os.listdir('/content/PROJET G02 COMPLET/figures/')):
     print(f"  {f}")
 ```
 
