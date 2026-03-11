@@ -9,7 +9,6 @@ import torch.nn as nn
 from sklearn.metrics import accuracy_score, f1_score
 
 
-# ─── 1. Scheduler linéaire avec warmup ───────────────────────────────────────
 def get_linear_schedule_with_warmup(optimizer, num_warmup_steps, num_training_steps):
     def lr_lambda(step):
         if step < num_warmup_steps:
@@ -20,7 +19,6 @@ def get_linear_schedule_with_warmup(optimizer, num_warmup_steps, num_training_st
     return LambdaLR(optimizer, lr_lambda)
 
 
-# ─── 2. Une époque d'entraînement ────────────────────────────────────────────
 def train_epoch(model, loader, optimizer, scheduler, device, max_grad_norm=1.0):
     model.train()
     total_loss, total_correct, total_samples = 0.0, 0, 0
@@ -45,13 +43,10 @@ def train_epoch(model, loader, optimizer, scheduler, device, max_grad_norm=1.0):
     return total_loss / total_samples, total_correct / total_samples
 
 
-# ─── 3. Évaluation ───────────────────────────────────────────────────────────
 def evaluate(model, loader, device):
     """
     Évalue le modèle sur un DataLoader.
-
-    Returns:
-        dict : loss, accuracy, f1
+    Returns: dict avec loss, accuracy, f1
     """
     model.eval()
     all_preds, all_labels = [], []
@@ -75,24 +70,10 @@ def evaluate(model, loader, device):
     }
 
 
-# ─── 4. Boucle complète avec early stopping ──────────────────────────────────
 def train_model(model, loaders, optimizer, num_epochs=3, warmup_ratio=0.1,
                 device=None, max_grad_norm=1.0, patience=2, verbose=True):
     """
-    Entraîne le modèle et retourne l'historique des métriques.
-
-    Args:
-        model         : Modèle BERT.
-        loaders       : dict de DataLoaders (train, validation).
-        optimizer     : Optimiseur AdamW.
-        num_epochs    : Nombre maximum d'époques.
-        warmup_ratio  : Fraction des steps dédiés au warmup.
-        device        : CPU ou CUDA.
-        patience      : Nombre d'époques sans amélioration avant arrêt.
-        verbose       : Affichage des métriques à chaque époque.
-
-    Returns:
-        history : dict avec train_loss, train_acc, val_loss, val_acc, val_f1
+    Entraîne le modèle avec early stopping et retourne l'historique.
     """
     if device is None:
         device = next(model.parameters()).device
@@ -125,7 +106,6 @@ def train_model(model, loaders, optimizer, num_epochs=3, warmup_ratio=0.1,
                   f"val_acc={val_metrics['accuracy']:.4f}  "
                   f"val_f1={val_metrics['f1']:.4f}")
 
-        # Early stopping sur val_loss
         if val_metrics["loss"] < best_val_loss:
             best_val_loss     = val_metrics["loss"]
             epochs_no_improve = 0
@@ -141,13 +121,8 @@ def train_model(model, loaders, optimizer, num_epochs=3, warmup_ratio=0.1,
     if verbose:
         print(f"  Durée : {elapsed:.1f}s")
 
-    # Restaurer le meilleur état
     if best_state:
         model.load_state_dict({k: v.to(device) for k, v in best_state.items()})
 
     history["train_time"] = elapsed
     return history
-
-
-if __name__ == "__main__":
-    print("Module train_eval chargé.")

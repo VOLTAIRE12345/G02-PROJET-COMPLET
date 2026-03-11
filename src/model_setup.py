@@ -10,7 +10,6 @@ import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 
-# ─── 1. Device ────────────────────────────────────────────────────────────────
 def get_device():
     """Détecte automatiquement GPU (Colab T4) ou CPU."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -21,20 +20,13 @@ def get_device():
     return device
 
 
-# ─── 2. Chargement BERT ───────────────────────────────────────────────────────
 def get_model_and_tokenizer(model_name=MODEL_NAME, num_labels=NUM_LABELS,
                              dropout_prob=0.1, device=None):
     """
     Charge BERT-base-uncased avec dropout configurable (hyperparamètre P02).
 
     Args:
-        model_name   : Identifiant HuggingFace du modèle.
-        num_labels   : Nombre de classes (2 pour IMDb).
-        dropout_prob : Taux de dropout — hidden ET attention (P02).
-        device       : CPU ou CUDA. Auto-détecté si None.
-
-    Returns:
-        model, tokenizer
+        dropout_prob : Taux de dropout appliqué à hidden ET attention layers.
     """
     if device is None:
         device = get_device()
@@ -52,22 +44,14 @@ def get_model_and_tokenizer(model_name=MODEL_NAME, num_labels=NUM_LABELS,
     model = model.to(device)
 
     n_params = sum(p.numel() for p in model.parameters())
-    print(f"Modèle : {model_name} | dropout={dropout_prob} | {n_params/1e6:.1f}M paramètres")
+    print(f"Modèle : {model_name} | dropout={dropout_prob:.4f} | {n_params/1e6:.1f}M paramètres")
     return model, tokenizer
 
 
-# ─── 3. Optimiseur AdamW avec weight decay découplé ──────────────────────────
 def build_optimizer(model, lr=2e-5, weight_decay=1e-4):
     """
     AdamW avec weight decay découplé (recommandé pour BERT).
-    Les biais et LayerNorm ne sont pas régularisés.
-
-    Args:
-        lr           : Learning rate.
-        weight_decay : Régularisation L2 — hyperparamètre principal P02.
-
-    Returns:
-        Optimiseur AdamW configuré.
+    Les biais et LayerNorm ne sont PAS régularisés (pratique standard).
     """
     no_decay = ["bias", "LayerNorm.weight"]
     grouped_params = [
@@ -91,8 +75,6 @@ if __name__ == "__main__":
     model, tok = get_model_and_tokenizer(dropout_prob=0.1, device=device)
     opt = build_optimizer(model, lr=2e-5, weight_decay=1e-4)
     print("Modèle et optimiseur prêts.")
-
-    # Test inférence
     inputs = tok("This movie was absolutely amazing!",
                  return_tensors="pt", truncation=True, max_length=64).to(device)
     with torch.no_grad():

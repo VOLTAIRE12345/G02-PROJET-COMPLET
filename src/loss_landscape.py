@@ -2,6 +2,7 @@
 loss_landscape.py — Groupe G02
 Analyse du loss landscape 1D (méthode simplifiée CPU/GPU).
 Calcul de la sharpness selon Keskar et al. (2017).
+Filter-wise normalization selon Li et al. (2018).
 """
 import sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -11,7 +12,6 @@ import numpy as np
 import torch
 
 
-# ─── 1. Évaluation sur subset ────────────────────────────────────────────────
 def evaluate_on_subset(model, loader, device, n_samples=64):
     """Calcule la loss moyenne sur n_samples exemples."""
     model.eval()
@@ -28,26 +28,14 @@ def evaluate_on_subset(model, loader, device, n_samples=64):
     return total_loss / max(n, 1)
 
 
-# ─── 2. Loss Landscape 1D ────────────────────────────────────────────────────
 def compute_loss_landscape_1d(model, loader, device, n_points=15, epsilon=0.05):
     """
     Perturbation 1D du modèle autour de son point courant.
     Utilise la filter-wise normalization (Li et al., 2018).
-
-    Args:
-        model    : Modèle entraîné.
-        loader   : DataLoader de validation.
-        device   : CPU ou CUDA.
-        n_points : Nombre de points sur la grille [-epsilon, +epsilon].
-        epsilon  : Amplitude maximale de la perturbation.
-
-    Returns:
-        alphas (list), losses (list)
     """
     model.eval()
     original_params = [p.clone().detach() for p in model.parameters()]
 
-    # Direction aléatoire normalisée (filter-wise)
     direction = []
     for p in model.parameters():
         d      = torch.randn_like(p)
@@ -64,36 +52,26 @@ def compute_loss_landscape_1d(model, loader, device, n_points=15, epsilon=0.05):
         loss = evaluate_on_subset(model, loader, device, n_samples=64)
         losses.append(loss)
 
-    # Restauration des paramètres originaux
     for p, p0 in zip(model.parameters(), original_params):
         p.data = p0.clone()
 
     return alphas.tolist(), losses
 
 
-# ─── 3. Sharpness ────────────────────────────────────────────────────────────
 def compute_sharpness(model, loader, device, rho=0.05, n_directions=5):
     """
     Sharpness = moyenne sur plusieurs directions de
     |L(theta + eps) - L(theta)| avec ||eps|| <= rho.
-
     Un minima plat (sharpness faible) → meilleure généralisation.
-
-    Args:
-        rho          : Rayon de la perturbation.
-        n_directions : Nombre de directions aléatoires.
-
-    Returns:
-        sharpness (float)
     """
     base_loss       = evaluate_on_subset(model, loader, device, n_samples=128)
     original_params = [p.clone().detach() for p in model.parameters()]
     max_deltas      = []
 
     for _ in range(n_directions):
-        direction   = [torch.randn_like(p) for p in model.parameters()]
-        total_norm  = sum(d.norm()**2 for d in direction).sqrt() + 1e-8
-        direction   = [rho * d / total_norm for d in direction]
+        direction  = [torch.randn_like(p) for p in model.parameters()]
+        total_norm = sum(d.norm()**2 for d in direction).sqrt() + 1e-8
+        direction  = [rho * d / total_norm for d in direction]
 
         for p, p0, d in zip(model.parameters(), original_params, direction):
             p.data = p0 + d
@@ -107,19 +85,9 @@ def compute_sharpness(model, loader, device, rho=0.05, n_directions=5):
     return float(np.mean(max_deltas))
 
 
-# ─── 4. Analyse comparative de plusieurs configurations ──────────────────────
 def analyze_configs(configs: list, loaders: dict, device):
     """
     Calcule loss landscape et sharpness pour chaque configuration entraînée.
-
-    Args:
-        configs : liste de dict {'label', 'model', 'history'}
-        loaders : dict de DataLoaders
-        device  : CPU ou CUDA
-
-    Returns:
-        dict {label: {alphas, losses, sharpness, val_f1, val_acc,
-                       train_acc, generalization_gap}}
     """
     results = {}
 
@@ -135,32 +103,27 @@ def analyze_configs(configs: list, loaders: dict, device):
             model, loaders["validation"], device, rho=0.05, n_directions=5
         )
 
-        val_f1   = max(cfg["history"]["val_f1"])
-        val_acc  = max(cfg["history"]["val_acc"])
-        train_acc= max(cfg["history"]["train_acc"])
+        val_f1    = max(cfg["history"]["val_f1"])
+        val_acc   = max(cfg["history"]["val_acc"])
+        train_acc = max(cfg["history"]["train_acc"])
 
         results[label] = {
-            "alphas":              alphas,
-            "losses":              losses,
-            "sharpness":           sharpness,
-            "val_f1":              val_f1,
-            "val_acc":             val_acc,
-            "train_acc":           train_acc,
-            "generalization_gap":  train_acc - val_acc,
+            "alphas":             alphas,
+            "losses":             losses,
+            "sharpness":          sharpness,
+            "val_f1":             val_f1,
+            "val_acc":            val_acc,
+            "train_acc":          train_acc,
+            "generalization_gap": train_acc - val_acc,
         }
         print(f"    Sharpness = {sharpness:.5f} | Val F1 = {val_f1:.4f} | "
               f"Gap = {train_acc - val_acc:.4f}")
 
-    # Sauvegarde
     path = os.path.join(RESULTS_DIR, "sharpness_results.json")
     with open(path, "w") as f:
-        save = {k: {kk: vv for kk, vv in v.items() if kk not in ["alphas","losses"]}
+        save = {k: {kk: vv for kk, vv in v.items() if kk not in ["alphas", "losses"]}
                 for k, v in results.items()}
         json.dump(save, f, indent=2, default=float)
     print(f"\n  Sharpness sauvegardée : {path}")
 
     return results
-
-
-if __name__ == "__main__":
-    print("Module loss_landscape chargé.")
