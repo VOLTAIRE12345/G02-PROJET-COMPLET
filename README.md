@@ -2,6 +2,7 @@
 ## Compatible Google Colab ✅ | GPU T4 recommandé
 
 **Groupe**        : Projet G02: AZONFACK - FONKOUA - OGNIMBA 
+
 **Dataset**       : D01 — IMDb Reviews (50k, binaire pos/nég)  
 **Modèle**        : M02 — BERT-base-uncased (109.5M paramètres)  
 **Problématique** : P02 — Régularisation et Généralisation  
