@@ -82,7 +82,8 @@ L'exécution se fait en **3 étapes dans cet ordre** :
 ### Étape 1 — Cloner le dépôt
 ```python
 !git clone https://github.com/VOLTAIRE12345/G02-PROJET-COMPLET.git "/content/PROJET G02 COMPLET"
-%cd "/content/PROJET G02 COMPLET"
+import os
+os.chdir("/content/PROJET G02 COMPLET")
 ```
 
 ### Étape 2 — Installer les dépendances
