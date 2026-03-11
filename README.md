@@ -53,8 +53,8 @@ G02_PROJET_COMPLET/
 
 ### Étape 1 — Cloner le dépôt
 ```python
-!git clone https://github.com/VOLTAIRE12345/G02-PROJET-COMPLET.git /content/PROJET G02 COMPLET
-%cd /content/PROJET G02 COMPLET
+!git clone https://github.com/VOLTAIRE12345/G02-PROJET-COMPLET.git "/content/PROJET G02 COMPLET"
+%cd "/content/PROJET G02 COMPLET"
 ```
 
 ### Étape 2 — Installer les dépendances
