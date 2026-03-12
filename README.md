@@ -121,6 +121,19 @@ print("Figures générées :")
 for f in sorted(os.listdir('/content/PROJET G02 COMPLET/figures/')):
     print(f"  {f}")
 ```
+### Étape 8 — Télécharger les figures
+
+Zipper et télécharger toutes les figures générées en une seule fois :
+
+```python
+# Zipper toutes les figures
+import shutil
+shutil.make_archive('/content/figures_G02', 'zip', '/content/PROJET G02 COMPLET/figures/')
+print("✅ ZIP créé : /content/figures_G02.zip")
+
+# Télécharger le ZIP
+from google.colab import files
+files.download('/content/figures_G02.zip')
 
 ---
 
