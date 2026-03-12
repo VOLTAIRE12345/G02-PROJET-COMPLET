@@ -1,4 +1,4 @@
-# Projet G02 — Fine-tuning BERT / IMDb — P02 Régularisation
+# Projet G02 : Fine-tuning BERT / IMDb , P02 Régularisation
 ## Compatible Google Colab ✅ | GPU T4 recommandé
 
 **Groupe**        : Projet G02: AZONFACK - FONKOUA - OGNIMBA 
@@ -8,7 +8,7 @@
 **Problématique** : P02 — Régularisation et Généralisation  
 **Méthode**       : Optuna (TPE Sampler, 20 trials)  
 **Métrique**      : Accuracy & F1-score  
-**Date limite**   : 13 mars 2026  
+
 
 ---
 
