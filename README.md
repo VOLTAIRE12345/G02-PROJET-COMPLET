@@ -134,6 +134,7 @@ print("✅ ZIP créé : /content/figures_G02.zip")
 # Télécharger le ZIP
 from google.colab import files
 files.download('/content/figures_G02.zip')
+```
 
 ---
 
