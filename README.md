@@ -144,7 +144,9 @@ files.download('/content/figures_G02.zip')
 | Combiné (WD=1e-3, Drop=0.1) | 0.8325 | 0.0783 | 0.00001 |
 | Optuna Best | 0.8451 | 0.1133 | 0.00001 |
 
-**Meilleure config (test set) : Fort WD → Accuracy = 87.67% | F1 = 87.46%**
+**Test Accuracy : 84,67 %  |  Test F1 : 84,87 %  |  Test Loss : 0,360
+Meilleur val F1 Optuna : 86,83 %  (WD=7.82×10⁻⁴, Dropout=13,5 %, LR=4.60×10⁻⁵, 4 époques)
+**
 
 ---
 
