@@ -138,11 +138,11 @@ files.download('/content/figures_G02.zip')
 
 | Configuration | Val F1 | Gap | Sharpness |
 |---|---|---|---|
-| Défaut (WD=0, Drop=0.1) | 0.843 | 0.102 | 0.60×10⁻⁵ |
-| Fort WD (WD=1e-2, Drop=0.0) | **0.844** | 0.127 | 1.71×10⁻⁵ |
-| Fort Drop (WD=0, Drop=0.3) | 0.791 | -0.013 | 1.29×10⁻⁵ |
-| Combiné (WD=1e-3, Drop=0.1) | 0.804 | 0.113 | 1.87×10⁻⁵ |
-| Optuna Best | 0.843 | 0.112 | 1.19×10⁻⁵ |
+| Défaut (WD=0, Drop=0.1) | 0.8269 | 0.1117 | 0.00001 |
+| Fort WD (WD=1e-2, Drop=0.0) | 0.8544 | 0.1033 | 0.00001 |
+| Fort Drop (WD=0, Drop=0.3) | 0.7097 | 0.0917 | 0.00003 |
+| Combiné (WD=1e-3, Drop=0.1) | 0.8325 | 0.0783 | 0.00001 |
+| Optuna Best | 0.8451 | 0.1133 | 0.00001 |
 
 **Meilleure config (test set) : Fort WD → Accuracy = 87.67% | F1 = 87.46%**
 
