@@ -149,5 +149,5 @@ Le rapport complet est disponible dans `report/main.pdf`.
 
 ---
 
-## Lien dépôt
+## Lien vers le dépôt
 - https://github.com/VOLTAIRE12345/G02-PROJET-COMPLET
