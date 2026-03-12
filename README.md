@@ -86,42 +86,38 @@ import os
 os.chdir("/content/PROJET G02 COMPLET")
 ```
 
-### Étape 2 — Installer les dépendances
-```python
-!pip install -r requirements.txt -q
-```
-
-### Étape 3 — Vérifier le GPU
+### Étape 2 — Vérifier le GPU
 ```python
 import torch
 print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else "CPU")
 ```
 
-### Étape 4 — Exécuter le notebook d'exploration (optionnel mais recommandé)
+### Étape 3 — Exécuter le notebook d'exploration (installation les dépendances + analyse du dataset)
 ```python
 # Ouvrir et exécuter notebooks/exploration.ipynb dans Colab
-# Analyse exploratoire du dataset IMDb avant l'entraînement
+# ✅ Les dépendances sont installées automatiquement par ce notebook
+# 📊 Analyse exploratoire du dataset IMDb avant l'entraînement
 ```
 
-### Étape 5 — Lancer l'expérience complète
+### Étape 4 — Lancer l'expérience complète
 ```python
 !python src/main_experiment.py
 ```
 
-### Étape 6 — Analyser les résultats (notebook)
+### Étape 5 — Analyser les résultats (notebook)
 ```python
 # Ouvrir et exécuter notebooks/analysis.ipynb dans Colab
 # Nécessite que main_experiment.py ait été exécuté (résultats dans results/)
 ```
 
-### Étape 7 — Récupérer les figures
+### Étape 6 — Récupérer les figures
 ```python
 import os
 print("Figures générées :")
 for f in sorted(os.listdir('/content/PROJET G02 COMPLET/figures/')):
     print(f"  {f}")
 ```
-### Étape 8 — Télécharger les figures
+### Étape 7 — Télécharger les figures
 
 Zipper et télécharger toutes les figures générées en une seule fois :
 
