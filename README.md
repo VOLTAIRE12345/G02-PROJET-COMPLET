@@ -40,7 +40,7 @@ G02_PROJET_COMPLET/
 
 ## Workflow complet recommandé
 
-L'exécution se fait en **3 étapes dans cet ordre** :
+L'exécution se fera en **3 étapes dans cet ordre** :
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -92,34 +92,34 @@ import torch
 print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else "CPU")
 ```
 
-### Étape 3 — Exécuter le notebook d'exploration (installation les dépendances + analyse du dataset)
+### Étape 3 — Exécution du notebook d'exploration (installation les dépendances + analyse du dataset)
 ```python
 # Ouvrir et exécuter notebooks/exploration.ipynb dans Colab
 # ✅ Les dépendances sont installées automatiquement par ce notebook
 # 📊 Analyse exploratoire du dataset IMDb avant l'entraînement
 ```
 
-### Étape 4 — Lancer l'expérience complète
+### Étape 4 — Lancement de l'expérience complète
 ```python
 !python src/main_experiment.py
 ```
 
-### Étape 5 — Analyser les résultats (notebook)
+### Étape 5 — Analyse des résultats (notebook)
 ```python
 # Ouvrir et exécuter notebooks/analysis.ipynb dans Colab
 # Nécessite que main_experiment.py ait été exécuté (résultats dans results/)
 ```
 
-### Étape 6 — Récupérer les figures
+### Étape 6 — Récupération des figures
 ```python
 import os
 print("Figures générées :")
 for f in sorted(os.listdir('/content/PROJET G02 COMPLET/figures/')):
     print(f"  {f}")
 ```
-### Étape 7 — Télécharger les figures
+### Étape 7 — Téléchargement des figures
 
-Zipper et télécharger toutes les figures générées en une seule fois :
+Zippons et téléchargeons toutes les figures générées en une seule fois :
 
 ```python
 # Zipper toutes les figures
